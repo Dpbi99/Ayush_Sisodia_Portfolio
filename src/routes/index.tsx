@@ -9,6 +9,9 @@ import { Timeline } from "@/components/portfolio/Timeline";
 import { Coding } from "@/components/portfolio/Coding";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
+import { Splash } from "@/components/portfolio/Splash";
+import { CustomCursor } from "@/components/portfolio/CustomCursor";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
@@ -34,6 +37,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="relative">
+      <Splash />
+      <CustomCursor />
+      <ScrollProgress />
       <Nav />
       <Hero />
       <Marquee />
@@ -48,3 +54,4 @@ function Index() {
     </main>
   );
 }
+
