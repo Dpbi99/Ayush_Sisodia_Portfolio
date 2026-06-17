@@ -1,99 +1,119 @@
 import { useEffect, useState } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
-const roles = ["Developer", "AI Enthusiast", "Problem Solver", "Web Builder"];
+const roles = ["Developer", "AI Builder", "Web Crafter", "Problem Solver"];
 
 export function Hero() {
   const [i, setI] = useState(0);
+  const [time, setTime] = useState("");
+
   useEffect(() => {
-    const t = setInterval(() => setI((p) => (p + 1) % roles.length), 2400);
+    const t = setInterval(() => setI((p) => (p + 1) % roles.length), 2600);
     return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const tick = () => {
+      const d = new Date();
+      setTime(
+        d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST",
+      );
+    };
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
   }, []);
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
-      {/* Background image */}
       <img
         src={heroBg}
         alt=""
         aria-hidden
         width={1920}
         height={1080}
-        className="absolute inset-0 h-full w-full object-cover opacity-50"
+        className="absolute inset-0 h-full w-full object-cover opacity-40"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
       <div className="absolute inset-0 grid-bg opacity-40" />
 
-      {/* Floating orbs */}
-      <div className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-primary/20 blur-[120px] animate-float-slow" />
-      <div className="pointer-events-none absolute -right-32 bottom-1/4 h-[28rem] w-[28rem] rounded-full bg-accent/20 blur-[140px] animate-float-slower" />
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-primary/25 blur-[140px] animate-float-slow" />
+      <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-accent/25 blur-[160px] animate-float-slower" />
 
-      {/* Floating UI chips */}
-      <FloatingChip className="left-[8%] top-[28%] animate-float-slow" label="React" dot="bg-primary" />
-      <FloatingChip className="right-[10%] top-[22%] animate-float-slower" label="Python" dot="bg-accent" />
-      <FloatingChip className="left-[12%] bottom-[18%] animate-float-slower" label="AI/ML" dot="bg-primary" />
-      <FloatingChip className="right-[8%] bottom-[24%] animate-float-slow" label="Next.js" dot="bg-accent" />
-
-      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-start justify-center px-6 pt-32 pb-20">
-        <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium text-muted-foreground animate-rise" style={{ animationDelay: "100ms" }}>
-          <Sparkles className="h-3.5 w-3.5 text-primary" />
-          <span>Available for opportunities</span>
+      {/* Top meta bar */}
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 pt-32 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
+          available · 2026
         </div>
+        <div className="hidden md:block">{time}</div>
+        <div className="hidden md:block">portfolio / 001</div>
+      </div>
 
-        <h1 className="mt-8 max-w-5xl font-display text-[clamp(2.75rem,8vw,7rem)] font-semibold leading-[0.95] tracking-tight animate-rise" style={{ animationDelay: "200ms" }}>
-          Hi, I'm <span className="text-gradient">Your Name</span>
-          <br />
-          <span className="text-muted-foreground/90">building the </span>
-          <span className="relative inline-block">
-            <span key={i} className="inline-block animate-rise text-gradient">
-              {roles[i]}
-            </span>
-          </span>
-          <span className="text-muted-foreground/90"> era.</span>
-        </h1>
-
-        <p className="mt-8 max-w-xl text-lg text-muted-foreground animate-rise" style={{ animationDelay: "400ms" }}>
-          Computer Science Student · Developer · AI & Web Enthusiast crafting
-          immersive digital experiences and intelligent software.
+      {/* Massive kinetic headline */}
+      <div className="relative mx-auto max-w-[110rem] px-6 pt-16 md:pt-24">
+        <p className="font-mono text-xs uppercase tracking-[0.4em] text-primary">
+          <span className="mask-rise"><span style={{ animationDelay: "0.2s" }}>— Introducing</span></span>
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4 animate-rise" style={{ animationDelay: "500ms" }}>
-          <a
-            href="#projects"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]"
-          >
-            View Projects
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full glass px-7 py-3.5 text-sm font-semibold transition-all hover:border-primary/40 hover:bg-card/60"
-          >
-            Contact Me
-            <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-          </a>
-        </div>
+        <h1 className="mt-8 font-display font-semibold leading-[0.82] tracking-[-0.04em]">
+          <div className="text-[clamp(3rem,11vw,11rem)]">
+            <span className="mask-rise"><span style={{ animationDelay: "0.35s" }}>Hi, I'm</span></span>{" "}
+            <span className="mask-rise"><span style={{ animationDelay: "0.45s" }} className="font-serif italic text-gradient">your name</span></span>
+          </div>
+          <div className="mt-2 text-[clamp(3rem,11vw,11rem)]">
+            <span className="mask-rise"><span style={{ animationDelay: "0.6s" }} className="text-outline-strong">building</span></span>{" "}
+            <span className="mask-rise"><span style={{ animationDelay: "0.7s" }}>the</span></span>
+          </div>
+          <div className="mt-2 flex flex-wrap items-baseline gap-x-6 text-[clamp(3rem,11vw,11rem)]">
+            <span className="mask-rise"><span style={{ animationDelay: "0.85s" }}>future of</span></span>
+            <span className="relative inline-block overflow-hidden align-baseline">
+              <span
+                key={i}
+                className="block animate-rise font-serif italic text-gradient"
+              >
+                {roles[i]}.
+              </span>
+            </span>
+          </div>
+        </h1>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-muted-foreground animate-pulse-glow">
-          <div className="flex flex-col items-center gap-2">
-            <span>Scroll</span>
-            <div className="h-10 w-px bg-gradient-to-b from-primary to-transparent" />
+        {/* Bottom grid: description + ctas + scroll */}
+        <div className="mt-20 grid gap-10 border-t border-border pt-10 md:grid-cols-12">
+          <div className="md:col-span-3 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            (01) <br />Index
+          </div>
+          <p className="md:col-span-5 text-lg leading-relaxed text-muted-foreground">
+            Computer Science student crafting immersive interfaces,
+            <span className="text-foreground"> intelligent software</span>, and
+            experimental digital experiences at the edge of code and design.
+          </p>
+          <div className="md:col-span-4 flex flex-wrap items-end gap-3 md:justify-end">
+            <a
+              href="#projects"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-foreground px-7 py-4 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+            >
+              <span className="relative z-10">View Projects</span>
+              <span className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-background/10">
+                <ArrowDown className="h-3.5 w-3.5 -rotate-45" />
+              </span>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-4 text-sm font-medium transition-all hover:border-primary/60 hover:text-primary"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function FloatingChip({ className, label, dot }: { className?: string; label: string; dot: string }) {
-  return (
-    <div className={`pointer-events-none absolute hidden md:block ${className}`}>
-      <div className="glass flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium shadow-elevated">
-        <span className={`h-1.5 w-1.5 rounded-full ${dot} animate-pulse-glow`} />
-        {label}
+      {/* Scroll cue */}
+      <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex">
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-muted-foreground">scroll</span>
+        <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />
       </div>
-    </div>
+    </section>
   );
 }
