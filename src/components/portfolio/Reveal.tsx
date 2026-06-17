@@ -29,9 +29,8 @@ export function Reveal({
   }, []);
 
   return (
-    // @ts-expect-error generic tag
     <Tag
-      ref={ref}
+      ref={ref as never}
       style={{ transitionDelay: `${delay}ms` }}
       className={`reveal ${className}`}
     >
