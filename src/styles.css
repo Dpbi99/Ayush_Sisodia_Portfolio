@@ -115,6 +115,19 @@
     background-clip: text;
     color: transparent;
   }
+  .text-name-gradient {
+    background: linear-gradient(90deg, oklch(0.75 0.28 20), oklch(0.8 0.24 350), oklch(0.72 0.22 295), oklch(0.75 0.28 20));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: nameGradientShift 4s ease-in-out infinite;
+    text-shadow: 0 0 40px oklch(0.75 0.28 20 / 0.35), 0 0 80px oklch(0.8 0.24 350 / 0.2);
+  }
+  @keyframes nameGradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
   .text-outline {
     -webkit-text-stroke: 1px oklch(1 0 0 / 0.3);
     color: transparent;

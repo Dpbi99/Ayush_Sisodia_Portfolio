@@ -60,7 +60,7 @@ export function Hero() {
         <h1 className="mt-8 font-display font-semibold leading-[0.82] tracking-[-0.04em]">
           <div className="text-[clamp(3rem,11vw,11rem)]">
             <span className="mask-rise"><span style={{ animationDelay: "0.35s" }}>Hi, I'm</span></span>{" "}
-            <span className="mask-rise"><span style={{ animationDelay: "0.45s" }} className="font-serif italic text-gradient">your name</span></span>
+            <span className="mask-rise"><span style={{ animationDelay: "0.45s" }} className="font-serif italic text-name-gradient">your name</span></span>
           </div>
           <div className="mt-2 text-[clamp(3rem,11vw,11rem)]">
             <span className="mask-rise"><span style={{ animationDelay: "0.6s" }} className="text-outline-strong">building</span></span>{" "}
