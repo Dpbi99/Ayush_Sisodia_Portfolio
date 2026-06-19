@@ -116,18 +116,37 @@
     color: transparent;
   }
   .text-name-gradient {
-    background: linear-gradient(90deg, oklch(0.75 0.28 20), oklch(0.8 0.24 350), oklch(0.72 0.22 295), oklch(0.75 0.28 20));
+    background: linear-gradient(
+      90deg,
+      oklch(0.85 0.18 195),
+      oklch(0.78 0.22 165),
+      oklch(0.82 0.2 130),
+      oklch(0.75 0.24 240),
+      oklch(0.85 0.18 195)
+    );
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: nameGradientShift 4s ease-in-out infinite;
-    text-shadow: 0 0 40px oklch(0.75 0.28 20 / 0.35), 0 0 80px oklch(0.8 0.24 350 / 0.2);
+    animation: nameGradientShift 5s ease-in-out infinite;
+    text-shadow:
+      0 0 30px oklch(0.85 0.18 195 / 0.35),
+      0 0 70px oklch(0.78 0.22 165 / 0.25);
+    transition: text-shadow 0.4s ease, filter 0.4s ease, transform 0.2s ease-out;
+    will-change: transform, filter;
+  }
+  .text-name-gradient:hover {
+    filter: brightness(1.15) saturate(1.2);
+    text-shadow:
+      0 0 40px oklch(0.85 0.18 195 / 0.6),
+      0 0 90px oklch(0.78 0.22 165 / 0.45),
+      0 0 140px oklch(0.75 0.24 240 / 0.35);
   }
   @keyframes nameGradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
+
   .text-outline {
     -webkit-text-stroke: 1px oklch(1 0 0 / 0.3);
     color: transparent;
