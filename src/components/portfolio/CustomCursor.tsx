@@ -15,61 +15,110 @@ export function CustomCursor() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setEnabled(true);
 
     let x = window.innerWidth / 2, y = window.innerHeight / 2;
     let rx = x, ry = y;
     let bx = x, by = y;
     let raf = 0;
+    let running = true;
+    let dirty = true;
+    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
 
     const onMove = (e: MouseEvent) => {
       x = e.clientX; y = e.clientY;
+      dirty = true;
       if (dot.current) dot.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
+
     const tick = () => {
-      rx += (x - rx) * 0.22;
-      ry += (y - ry) * 0.22;
-      bx += (x - bx) * 0.08;
-      by += (y - by) * 0.08;
+      if (!running) { raf = 0; return; }
+      const dxR = x - rx, dyR = y - ry;
+      const dxB = x - bx, dyB = y - by;
+      // Skip work when essentially settled and no new input
+      if (!dirty && Math.abs(dxR) < 0.1 && Math.abs(dyR) < 0.1 && Math.abs(dxB) < 0.1 && Math.abs(dyB) < 0.1) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      rx += dxR * 0.22;
+      ry += dyR * 0.22;
+      bx += dxB * 0.08;
+      by += dyB * 0.08;
       if (ring.current) ring.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       if (blob.current) blob.current.style.transform = `translate3d(${bx}px, ${by}px, 0)`;
       if (label.current) label.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+      dirty = Math.abs(dxR) > 0.1 || Math.abs(dyR) > 0.1;
       raf = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (!raf) { running = true; raf = requestAnimationFrame(tick); }
+    };
+    const stop = () => {
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
     };
 
     const onOver = (e: MouseEvent) => {
       const t = (e.target as HTMLElement)?.closest<HTMLElement>(
         "a, button, input, textarea, [data-cursor]"
       );
-      if (!t) { setVariant("default"); setLabelText(""); return; }
+      if (!t) {
+        setVariant((v) => (v === "default" ? v : "default"));
+        setLabelText((l) => (l === "" ? l : ""));
+        return;
+      }
       const v = (t.dataset.cursor as Variant) || "";
       const txt = t.dataset.cursorLabel || "";
-      if (v) { setVariant(v); setLabelText(txt); return; }
-      if (t.tagName === "INPUT" || t.tagName === "TEXTAREA") {
-        setVariant("text"); setLabelText(""); return;
-      }
-      if (t.tagName === "IMG" || t.closest("[data-cursor-view]")) {
-        setVariant("view"); setLabelText("view"); return;
-      }
-      setVariant("hover"); setLabelText("");
+      let next: Variant = "hover";
+      let nextLabel = "";
+      if (v) { next = v; nextLabel = txt; }
+      else if (t.tagName === "INPUT" || t.tagName === "TEXTAREA") { next = "text"; }
+      else if (t.tagName === "IMG" || t.closest("[data-cursor-view]")) { next = "view"; nextLabel = "view"; }
+      setVariant((cur) => (cur === next ? cur : next));
+      setLabelText((cur) => (cur === nextLabel ? cur : nextLabel));
     };
     const onDown = () => setDown(true);
     const onUp = () => setDown(false);
     const onLeave = () => { setVariant("default"); setLabelText(""); };
 
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseover", onOver);
-    window.addEventListener("mousedown", onDown);
-    window.addEventListener("mouseup", onUp);
+    // Pause the loop while the user is actively scrolling
+    const onScroll = () => {
+      if (blob.current && blob.current.style.opacity !== "0") {
+        blob.current.style.opacity = "0";
+      }
+      stop();
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        if (blob.current) blob.current.style.opacity = "";
+        dirty = true;
+        start();
+      }, 120);
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stop(); else start();
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseover", onOver, { passive: true });
+    window.addEventListener("mousedown", onDown, { passive: true });
+    window.addEventListener("mouseup", onUp, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("mouseleave", onLeave);
-    raf = requestAnimationFrame(tick);
+    document.addEventListener("visibilitychange", onVisibility);
+    start();
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("scroll", onScroll);
       document.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
+      document.removeEventListener("visibilitychange", onVisibility);
+      if (scrollTimer) clearTimeout(scrollTimer);
+      stop();
     };
   }, []);
 
@@ -83,29 +132,29 @@ export function CustomCursor() {
     "h-9 w-9 -ml-[18px] -mt-[18px]";
 
   const ringStyle =
-    variant === "view" ? "border-primary/70 bg-primary/10 backdrop-blur-md" :
-    variant === "hover" ? "border-primary/60 bg-primary/5 backdrop-blur-sm" :
+    variant === "view" ? "border-primary/70 bg-primary/10" :
+    variant === "hover" ? "border-primary/60 bg-primary/5" :
     variant === "text" ? "border-0 bg-primary" :
     variant === "drag" ? "border-accent/70 bg-accent/10" :
     "border-foreground/40";
 
   return (
     <>
-      {/* Soft glowing blob trailing far behind */}
+      {/* Soft glowing blob trailing far behind — cheaper blur, hidden on scroll */}
       <div
         ref={blob}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[99] -ml-32 -mt-32 h-64 w-64 rounded-full bg-primary/15 blur-3xl opacity-70"
+        className="pointer-events-none fixed left-0 top-0 z-[99] -ml-24 -mt-24 h-48 w-48 rounded-full bg-primary/15 blur-2xl opacity-60 will-change-transform transition-opacity duration-200"
       />
       {/* Outer ring */}
       <div
         ref={ring}
         aria-hidden
-        className={`pointer-events-none fixed left-0 top-0 z-[100] rounded-full border mix-blend-difference transition-[width,height,margin,background,border-color,opacity] duration-300 ease-out ${ringSize} ${ringStyle} ${down ? "scale-75" : ""}`}
+        className={`pointer-events-none fixed left-0 top-0 z-[100] rounded-full border mix-blend-difference will-change-transform transition-[width,height,margin,background-color,border-color,opacity,transform] duration-200 ease-out ${ringSize} ${ringStyle} ${down ? "scale-75" : ""}`}
       >
         <span
           ref={label}
-          className="pointer-events-none fixed left-0 top-0 -translate-x-1/2 translate-y-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/90 whitespace-nowrap"
+          className="pointer-events-none fixed left-0 top-0 -translate-x-1/2 translate-y-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/90 whitespace-nowrap will-change-transform"
           style={{ opacity: labelText ? 1 : 0, transition: "opacity 200ms ease" }}
         >
           {labelText}
@@ -115,7 +164,7 @@ export function CustomCursor() {
       <div
         ref={dot}
         aria-hidden
-        className={`pointer-events-none fixed left-0 top-0 z-[101] -ml-[3px] -mt-[3px] rounded-full bg-primary transition-[width,height,opacity] duration-200 ${
+        className={`pointer-events-none fixed left-0 top-0 z-[101] -ml-[3px] -mt-[3px] rounded-full bg-primary will-change-transform transition-opacity duration-200 ${
           variant === "default" ? "h-1.5 w-1.5 opacity-100" : "h-1 w-1 opacity-0"
         }`}
       />
