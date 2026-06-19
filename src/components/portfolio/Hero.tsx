@@ -74,7 +74,19 @@ export function Hero() {
         <h1 className="mt-8 font-display font-semibold leading-[0.82] tracking-[-0.04em]">
           <div className="text-[clamp(3rem,11vw,11rem)]">
             <span className="mask-rise"><span style={{ animationDelay: "0.35s" }}>Hi, I'm</span></span>{" "}
-            <span className="mask-rise"><span style={{ animationDelay: "0.45s" }} className="font-serif italic text-name-gradient">your name</span></span>
+            <span
+              className="mask-rise inline-block"
+              onMouseMove={handleMagnet}
+              onMouseLeave={resetMagnet}
+            >
+              <span
+                ref={nameRef}
+                style={{ animationDelay: "0.45s", transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), text-shadow 0.4s ease, filter 0.4s ease" }}
+                className="font-serif italic text-name-gradient inline-block cursor-pointer"
+              >
+                your name
+              </span>
+            </span>
           </div>
           <div className="mt-2 text-[clamp(3rem,11vw,11rem)]">
             <span className="mask-rise"><span style={{ animationDelay: "0.6s" }} className="text-outline-strong">building</span></span>{" "}
