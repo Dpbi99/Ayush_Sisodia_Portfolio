@@ -8,6 +8,19 @@ const roles = ["Developer", "AI Builder", "Web Crafter", "Problem Solver"];
 export function Hero() {
   const [i, setI] = useState(0);
   const [time, setTime] = useState("");
+  const nameRef = useRef<HTMLSpanElement>(null);
+
+  const handleMagnet = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const el = nameRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    el.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+  };
+  const resetMagnet = () => {
+    if (nameRef.current) nameRef.current.style.transform = "translate(0px, 0px)";
+  };
 
   useEffect(() => {
     const t = setInterval(() => setI((p) => (p + 1) % roles.length), 2600);
