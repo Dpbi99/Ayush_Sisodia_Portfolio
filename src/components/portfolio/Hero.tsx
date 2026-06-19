@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { ArrowDown } from "lucide-react";
 
 const roles = ["Developer", "AI Builder", "Web Crafter", "Problem Solver"];
+
 
 export function Hero() {
   const [i, setI] = useState(0);
