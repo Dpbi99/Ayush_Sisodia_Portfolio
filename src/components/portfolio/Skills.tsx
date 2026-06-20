@@ -11,7 +11,7 @@ const categories = [
   },
   {
     n: "03", label: "Programming",
-    items: ["Python", "Java", "C++"],
+    items: ["Python", "Java", "C++","PHP","C"],
   },
   {
     n: "04", label: "Artificial Intelligence",
@@ -62,7 +62,7 @@ export function Skills() {
                     return (
                       <li
                         key={item}
-                        className={`rounded-full border border-border bg-card/40 px-4 py-2 text-sm transition-all hover:border-primary/60 hover:text-primary hover:shadow-glow ${floatClass}`}
+                        className={`rounded-full border border-border bg-card/40 px-4 py-2 text-sm text-muted-foreground transition-all duration-[700ms] ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:border-transparent hover:bg-gradient-to-r hover:from-primary/20 hover:via-accent/15 hover:to-primary/20 hover:text-foreground hover:shadow-glow ${floatClass}`}
                         style={{
                           animationDelay: delay,
                           animationDuration: duration,
