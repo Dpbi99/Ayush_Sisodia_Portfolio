@@ -10,16 +10,30 @@ export function Hero() {
   const [time, setTime] = useState("");
   const nameRef = useRef<HTMLSpanElement>(null);
 
+  const magnetRaf = useRef<number | null>(null);
+  const magnetTarget = useRef({ x: 0, y: 0 });
+
   const handleMagnet = (e: React.MouseEvent<HTMLSpanElement>) => {
     const el = nameRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-    el.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+    magnetTarget.current.x = (e.clientX - (rect.left + rect.width / 2)) * 0.18;
+    magnetTarget.current.y = (e.clientY - (rect.top + rect.height / 2)) * 0.22;
+    if (magnetRaf.current == null) {
+      magnetRaf.current = requestAnimationFrame(() => {
+        magnetRaf.current = null;
+        if (nameRef.current) {
+          nameRef.current.style.transform = `translate3d(${magnetTarget.current.x}px, ${magnetTarget.current.y}px, 0)`;
+        }
+      });
+    }
   };
   const resetMagnet = () => {
-    if (nameRef.current) nameRef.current.style.transform = "translate(0px, 0px)";
+    if (magnetRaf.current != null) {
+      cancelAnimationFrame(magnetRaf.current);
+      magnetRaf.current = null;
+    }
+    if (nameRef.current) nameRef.current.style.transform = "translate3d(0px, 0px, 0)";
   };
 
   useEffect(() => {
