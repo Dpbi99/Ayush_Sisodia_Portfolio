@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type Variant = "default" | "hover" | "view" | "text" | "drag";
+type Variant = "default" | "hover" | "view" | "text" | "drag" | "hide";
 
 export function CustomCursor() {
   const dot = useRef<HTMLDivElement>(null);
@@ -138,24 +138,26 @@ export function CustomCursor() {
     variant === "drag" ? "border-accent/70 bg-accent/10" :
     "border-foreground/40";
 
+  const hidden = variant === "hide";
+
   return (
     <>
       {/* Soft glowing blob trailing far behind — cheaper blur, hidden on scroll */}
       <div
         ref={blob}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[99] -ml-24 -mt-24 h-48 w-48 rounded-full bg-primary/15 blur-2xl opacity-60 will-change-transform transition-opacity duration-200"
+        className={`pointer-events-none fixed left-0 top-0 z-[99] -ml-24 -mt-24 h-48 w-48 rounded-full bg-primary/15 blur-2xl will-change-transform transition-opacity duration-200 ${hidden ? "opacity-0" : "opacity-60"}`}
       />
       {/* Outer ring */}
       <div
         ref={ring}
         aria-hidden
-        className={`pointer-events-none fixed left-0 top-0 z-[100] rounded-full border mix-blend-difference will-change-transform transition-[width,height,margin,background-color,border-color,opacity,transform] duration-200 ease-out ${ringSize} ${ringStyle} ${down ? "scale-75" : ""}`}
+        className={`pointer-events-none fixed left-0 top-0 z-[100] rounded-full border mix-blend-difference will-change-transform transition-[width,height,margin,background-color,border-color,opacity,transform] duration-200 ease-out ${ringSize} ${ringStyle} ${down ? "scale-75" : ""} ${hidden ? "opacity-0" : ""}`}
       >
         <span
           ref={label}
           className="pointer-events-none fixed left-0 top-0 -translate-x-1/2 translate-y-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/90 whitespace-nowrap will-change-transform"
-          style={{ opacity: labelText ? 1 : 0, transition: "opacity 200ms ease" }}
+          style={{ opacity: labelText && !hidden ? 1 : 0, transition: "opacity 200ms ease" }}
         >
           {labelText}
         </span>
@@ -165,7 +167,7 @@ export function CustomCursor() {
         ref={dot}
         aria-hidden
         className={`pointer-events-none fixed left-0 top-0 z-[101] -ml-[3px] -mt-[3px] rounded-full bg-primary will-change-transform transition-opacity duration-200 ${
-          variant === "default" ? "h-1.5 w-1.5 opacity-100" : "h-1 w-1 opacity-0"
+          hidden ? "opacity-0" : variant === "default" ? "h-1.5 w-1.5 opacity-100" : "h-1 w-1 opacity-0"
         }`}
       />
     </>
