@@ -92,11 +92,12 @@ export function Hero() {
               className="mask-rise inline-block"
               onMouseMove={handleMagnet}
               onMouseLeave={resetMagnet}
+              data-cursor="hide"
             >
               <span
                 ref={nameRef}
-                style={{ animationDelay: "0.45s", transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), text-shadow 0.4s ease, filter 0.4s ease" }}
-                className="font-serif italic text-name-gradient inline-block cursor-pointer"
+                style={{ animationDelay: "0.45s", transition: "text-shadow 0.4s ease, filter 0.4s ease", willChange: "transform" }}
+                className="font-serif italic text-name-gradient inline-block cursor-none"
               >
                 Ayush Sisodia
               </span>
