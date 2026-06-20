@@ -84,7 +84,7 @@ export function Hero() {
                 style={{ animationDelay: "0.45s", transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), text-shadow 0.4s ease, filter 0.4s ease" }}
                 className="font-serif italic text-name-gradient inline-block cursor-pointer"
               >
-                your name
+                Ayush Sisodia
               </span>
             </span>
           </div>
@@ -118,10 +118,10 @@ export function Hero() {
           <div className="md:col-span-4 flex flex-wrap items-end gap-3 md:justify-end">
             <a
               href="#projects"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-foreground px-7 py-4 text-sm font-medium text-background transition-transform hover:scale-[1.03]"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-foreground px-7 py-4 text-sm font-medium text-background transition-all duration-[2000ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:scale-[1.03] hover:bg-primary/90"
             >
               <span className="relative z-10">View Projects</span>
-              <span className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-background/10">
+              <span className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-all duration-[2000ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1">
                 <ArrowDown className="h-3.5 w-3.5 -rotate-45" />
               </span>
             </a>

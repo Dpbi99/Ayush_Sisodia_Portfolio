@@ -46,9 +46,9 @@ export function Contact() {
 
             <Reveal delay={250}>
               <ul className="mt-12 divide-y divide-border border-y border-border">
-                <ContactLink icon={Mail} label="hello@yourname.dev" sub="Email" href="mailto:hello@yourname.dev" />
-                <ContactLink icon={Linkedin} label="/in/yourname" sub="LinkedIn" href="#" />
-                <ContactLink icon={Github} label="@yourhandle" sub="GitHub" href="#" />
+                <ContactLink icon={Mail} label="ayushsisodia2006@gmail.com" sub="Email" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=ayushsisodia2006@gmail.com" />
+                <ContactLink icon={Linkedin} label="/in/ayush-sisodia-0b7514337/" sub="LinkedIn" href="https://www.linkedin.com/in/ayush-sisodia-0b7514337/" />
+                <ContactLink icon={Github} label="@Dpbi99" sub="GitHub" href="https://github.com/Dpbi99" />
               </ul>
             </Reveal>
           </div>
@@ -125,7 +125,12 @@ function ContactLink({
 }: { icon: typeof Mail; label: string; sub: string; href: string }) {
   return (
     <li>
-      <a href={href} className="group flex items-center justify-between gap-4 py-6">
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="group flex items-center justify-between gap-4 py-6"
+      >
         <span className="flex items-center gap-5">
           <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
           <span>
