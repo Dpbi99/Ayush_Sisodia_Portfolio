@@ -287,4 +287,42 @@
   }
 
   .magnetic { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  /* Global interactive feedback on buttons & links */
+  a, button {
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.4s ease,
+      filter 0.3s ease,
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  a.is-magnetic-hover,
+  button.is-magnetic-hover {
+    filter: brightness(1.12) saturate(1.08);
+  }
+  /* Ripple-style glow that follows the pointer on every interactive */
+  a, button { position: relative; }
+  a::before, button::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      120px circle at var(--mx, 50%) var(--my, 50%),
+      oklch(0.85 0.17 195 / 0.18),
+      transparent 60%
+    );
+  }
+  a.is-magnetic-hover::before,
+  button.is-magnetic-hover::before {
+    opacity: 1;
+  }
+  /* Opt-outs */
+  [data-magnetic-off="true"]::before,
+  [data-cursor="hide"]::before { display: none !important; }
 }
