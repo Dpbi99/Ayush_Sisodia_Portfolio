@@ -11,6 +11,7 @@ import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { Splash } from "@/components/portfolio/Splash";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
+import { MagneticInteractions } from "@/components/portfolio/MagneticInteractions";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -39,6 +40,7 @@ function Index() {
     <main className="relative">
       <Splash />
       <CustomCursor />
+      <MagneticInteractions />
       <ScrollProgress />
       <Nav />
       <Hero />
