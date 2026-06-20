@@ -45,6 +45,8 @@ export function MagneticInteractions() {
       const rect = el.getBoundingClientRect();
       const dx = e.clientX - (rect.left + rect.width / 2);
       const dy = e.clientY - (rect.top + rect.height / 2);
+      el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      el.style.setProperty("--my", `${e.clientY - rect.top}px`);
       const t = tracked.get(el);
       if (!t) return;
       t.tx = Math.max(-MAX, Math.min(MAX, dx * STRENGTH));
