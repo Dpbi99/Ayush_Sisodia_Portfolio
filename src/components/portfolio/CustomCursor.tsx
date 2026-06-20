@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-type Variant = "default" | "hover" | "view" | "text" | "drag";
+type Variant = "default" | "hover" | "view" | "text" | "drag" | "hide";
 
 export function CustomCursor() {
   const dot = useRef<HTMLDivElement>(null);
