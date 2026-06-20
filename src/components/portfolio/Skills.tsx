@@ -54,15 +54,24 @@ export function Skills() {
                 <h3 className="col-span-10 md:col-span-4 font-display text-3xl font-semibold transition-colors group-hover:text-gradient md:text-5xl">
                   {cat.label}
                 </h3>
-                <ul className="col-span-12 md:col-span-6 flex flex-wrap content-center gap-2 md:justify-end">
-                  {cat.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full border border-border bg-card/40 px-4 py-2 text-sm transition-all hover:border-primary/60 hover:text-primary"
-                    >
-                      {item}
-                    </li>
-                  ))}
+                <ul className="col-span-12 md:col-span-6 flex flex-wrap content-center gap-3 md:justify-end">
+                  {cat.items.map((item, i) => {
+                    const floatClass = `animate-float-${(i % 4) + 1}`;
+                    const delay = `${(i * 0.7 + idx * 0.3).toFixed(1)}s`;
+                    const duration = `${(5 + (i % 3) * 0.8).toFixed(1)}s`;
+                    return (
+                      <li
+                        key={item}
+                        className={`rounded-full border border-border bg-card/40 px-4 py-2 text-sm transition-all hover:border-primary/60 hover:text-primary hover:shadow-glow ${floatClass}`}
+                        style={{
+                          animationDelay: delay,
+                          animationDuration: duration,
+                        }}
+                      >
+                        {item}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </Reveal>
