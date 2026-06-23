@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import heroBg from "@/assets/hero-bg.jpg";
 import { ArrowDown } from "lucide-react";
+import { ParallaxScene } from "./ParallaxScene";
 
 const roles = ["Developer", "AI Builder", "Web Crafter", "Problem Solver"];
 
@@ -55,16 +55,9 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
-      <img
-        src={heroBg}
-        alt=""
-        aria-hidden
-        width={1920}
-        height={1080}
-        className="absolute inset-0 h-full w-full object-cover opacity-40"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
-      <div className="absolute inset-0 grid-bg opacity-40" />
+      <ParallaxScene />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background" />
+      <div className="absolute inset-0 grid-bg opacity-20" />
 
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-primary/25 blur-[140px] animate-float-slow" />
       <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-accent/25 blur-[160px] animate-float-slower" />
