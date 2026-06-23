@@ -17,6 +17,14 @@ const categories = [
     n: "04", label: "Artificial Intelligence",
     items: ["Machine Learning", "AI Tools", "AI Applications"],
   },
+  {
+    n:"05", label: "Other Skills",
+    items: ["Git", "Docker", "Linux", "DSA"],
+  },
+  {
+    n:"06", label: "Soft Skills",
+    items: ["Communication", "Teamwork", "Problem-Solving", "Adaptability", "Time Management"],
+  }
 ];
 
 export function Skills() {
@@ -62,7 +70,7 @@ export function Skills() {
                     return (
                       <li
                         key={item}
-                        className={`rounded-full border border-border bg-card/40 px-4 py-2 text-sm text-muted-foreground transition-all duration-[700ms] ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:border-transparent hover:bg-gradient-to-r hover:from-primary/20 hover:via-accent/15 hover:to-primary/20 hover:text-foreground hover:shadow-glow ${floatClass}`}
+                        className={`rounded-full border border-border bg-card/40 px-4 py-2 text-sm text-muted-foreground transition-all duration-[700ms] ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:border-primary/60 hover:bg-gradient-to-r hover:from-primary/30 hover:via-accent/20 hover:to-primary/30 hover:text-foreground hover:shadow-glow ${floatClass}`}
                         style={{
                           animationDelay: delay,
                           animationDuration: duration,

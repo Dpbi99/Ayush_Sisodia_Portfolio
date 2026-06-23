@@ -115,6 +115,12 @@
     background-clip: text;
     color: transparent;
   }
+  .text-gradient-pink {
+    background: linear-gradient(135deg, #ff1744 0%, #f50057 50%, #ff4081 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .text-name-gradient {
     background: linear-gradient(
       90deg,
@@ -262,6 +268,17 @@
     100% { transform: scaleX(1); }
   }
 
+  @keyframes gradient-x {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes border-glow {
+    0%, 100% { border-color: oklch(1 0 0 / 7%); box-shadow: 0 0 0 0 oklch(0.85 0.17 195 / 0); }
+    50% { border-color: oklch(0.85 0.17 195 / 0.6); box-shadow: 0 0 20px -5px oklch(0.85 0.17 195 / 0.4); }
+  }
+
   .animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
   .animate-float-slower { animation: float-slower 16s ease-in-out infinite; }
   .animate-float-1 { animation: float-1 5.5s ease-in-out infinite; }
@@ -274,6 +291,8 @@
   .animate-rise { animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .animate-blink { animation: blink 1s steps(1) infinite; }
   .animate-spin-slow { animation: spin-slow 18s linear infinite; }
+  .animate-gradient-x { animation: gradient-x 4s ease-in-out infinite; }
+  .animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
 
   .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.in-view { opacity: 1; transform: translateY(0); }

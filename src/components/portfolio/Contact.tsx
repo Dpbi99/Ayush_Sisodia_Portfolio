@@ -92,7 +92,7 @@ export function Contact() {
         <Reveal delay={300}>
           <p className="mt-32 max-w-5xl font-display text-3xl leading-tight md:text-5xl">
             <span className="text-muted-foreground">Building </span>
-            <span className="font-serif italic text-gradient">ideas</span>
+            <span className="font-serif italic text-gradient-pink">ideas</span>
             <span className="text-muted-foreground"> into </span>
             <span>digital experiences</span>
             <span className="text-muted-foreground"> — one commit at a time.</span>

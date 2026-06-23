@@ -168,7 +168,7 @@ export function Projects() {
                   {p.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-border px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
+                      className="rounded-full border border-border px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground animate-border-glow"
                     >
                       {t}
                     </span>
@@ -178,7 +178,7 @@ export function Projects() {
                 <div className="mt-6 flex items-center gap-3">
                   <a
                     href="#"
-                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-medium hover:border-primary/40"
+                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-medium hover:border-primary/40 animate-border-glow"
                   >
                     <Github className="h-3.5 w-3.5" /> Code
                   </a>

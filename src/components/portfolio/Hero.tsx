@@ -133,16 +133,16 @@ export function Hero() {
           <div className="md:col-span-4 flex flex-wrap items-end gap-3 md:justify-end">
             <a
               href="#projects"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-foreground px-7 py-4 text-sm font-medium text-background transition-all duration-[2000ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:scale-[1.03] hover:bg-primary/90"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] px-7 py-4 text-sm font-medium text-background shadow-glow transition-all duration-700 ease-out hover:scale-[1.05] hover:bg-right hover:shadow-glow-violet animate-gradient-x"
             >
               <span className="relative z-10">View Projects</span>
-              <span className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-all duration-[2000ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-1">
+              <span className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white/15 transition-all duration-700 ease-out group-hover:-translate-y-1 group-hover:bg-white/25">
                 <ArrowDown className="h-3.5 w-3.5 -rotate-45" />
               </span>
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-4 text-sm font-medium transition-all hover:border-primary/60 hover:text-primary"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-4 text-sm font-medium transition-all hover:border-primary/60 hover:text-primary animate-border-glow"
             >
               Contact
             </a>

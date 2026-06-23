@@ -54,7 +54,7 @@ export function Nav() {
           <div className="hidden md:block">
             <a
               href="#contact"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-card/40 px-5 py-2 text-sm font-medium transition-all hover:border-primary/60 hover:shadow-glow"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-border bg-card/40 px-5 py-2 text-sm font-medium transition-all hover:border-primary/60 hover:shadow-glow animate-border-glow"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
               Let's talk
@@ -64,7 +64,7 @@ export function Nav() {
           <button
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-border"
+            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-border animate-border-glow"
           >
             <div className="space-y-1.5">
               <span className={`block h-px w-5 bg-foreground transition ${open ? "translate-y-1.5 rotate-45" : ""}`} />
