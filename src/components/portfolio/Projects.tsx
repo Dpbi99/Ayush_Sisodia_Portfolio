@@ -99,7 +99,7 @@ export function Projects() {
         <div ref={wrapRef} className="grid gap-8 lg:grid-cols-12">
           {/* Sticky preview pane */}
           <div className="hidden lg:col-span-6 lg:block">
-            <div className="sticky top-32 aspect-[4/5] overflow-hidden rounded-3xl glass shadow-elevated">
+            <div data-tilt className="sticky top-32 aspect-[4/5] overflow-hidden rounded-3xl glass shadow-elevated">
               {projects.map((p, i) => (
                 <img
                   key={p.title}
@@ -108,6 +108,7 @@ export function Projects() {
                   loading="lazy"
                   width={1280}
                   height={800}
+                  data-warp="image"
                   className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
                     active === i ? "scale-100 opacity-100" : "scale-105 opacity-0"
                   }`}
