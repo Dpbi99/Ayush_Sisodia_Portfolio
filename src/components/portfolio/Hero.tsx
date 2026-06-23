@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
-import { ParallaxScene } from "./ParallaxScene";
+
 
 const roles = ["Developer", "AI Builder", "Web Crafter", "Problem Solver"];
 
@@ -55,12 +55,11 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen overflow-hidden">
-      <ParallaxScene />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
       <div className="absolute inset-0 grid-bg opacity-20" />
 
-      <div className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-primary/25 blur-[140px] animate-float-slow" />
-      <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-accent/25 blur-[160px] animate-float-slower" />
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[24rem] w-[24rem] rounded-full bg-primary/20 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[26rem] w-[26rem] rounded-full bg-accent/20 blur-[110px]" />
 
       {/* Top meta bar */}
       <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 pt-32 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
