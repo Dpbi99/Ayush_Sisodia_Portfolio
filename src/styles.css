@@ -333,6 +333,26 @@
 
   .magnetic { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 
+  /* Scroll-velocity warp — subtle skew/blur that responds to scroll speed.
+     --scroll-velocity is set on <html> by GlobalParallax (range ~-1..1). */
+  [data-warp] {
+    transform-origin: center;
+    transition: filter 0.25s ease-out;
+    will-change: transform, filter;
+  }
+  [data-warp="text"] {
+    transform: skewY(calc(var(--scroll-velocity, 0) * 1.5deg))
+               translateY(calc(var(--scroll-velocity, 0) * -6px));
+  }
+  [data-warp="image"] {
+    transform: scale(calc(1 + var(--scroll-velocity, 0) * 0.02))
+               skewY(calc(var(--scroll-velocity, 0) * 0.8deg));
+    filter: blur(calc(abs(var(--scroll-velocity, 0)) * 1.2px));
+  }
+  @supports not (filter: blur(calc(abs(0) * 1px))) {
+    [data-warp="image"] { filter: none; }
+  }
+
   /* Global interactive feedback on buttons & links */
   a, button {
     transition:
