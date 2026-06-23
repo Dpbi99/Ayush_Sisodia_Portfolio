@@ -43,7 +43,6 @@ function Index() {
       <CustomCursor />
       <MagneticInteractions />
       <ScrollProgress />
-      <ScrollProgress />
       <GlobalParallax />
       <Nav />
       <Hero />
