@@ -27,6 +27,13 @@ export function GlobalParallax() {
     const root = document.documentElement;
 
     const collect = () => {
+      // Auto-tag section numerals and radial backdrops for site-wide drift
+      document.querySelectorAll<HTMLElement>(".section-numeral").forEach((el) => {
+        if (!el.dataset.parallax) el.dataset.parallax = "1.6";
+      });
+      document.querySelectorAll<HTMLElement>(".bg-gradient-radial").forEach((el) => {
+        if (!el.dataset.parallax) el.dataset.parallax = "-0.5";
+      });
       elementsRef.current = Array.from(
         document.querySelectorAll<HTMLElement>("[data-parallax]"),
       );

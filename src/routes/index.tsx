@@ -13,6 +13,7 @@ import { Splash } from "@/components/portfolio/Splash";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { MagneticInteractions } from "@/components/portfolio/MagneticInteractions";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
+import { GlobalParallax } from "@/components/portfolio/GlobalParallax";
 import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
@@ -42,6 +43,8 @@ function Index() {
       <CustomCursor />
       <MagneticInteractions />
       <ScrollProgress />
+      <ScrollProgress />
+      <GlobalParallax />
       <Nav />
       <Hero />
       <Marquee />
